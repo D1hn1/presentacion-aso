@@ -1,5 +1,16 @@
 #!/bin/bash
 
+':
+· Una presentación tipo "Power Point" / Prezi explicando:
+	- Qué herramienta va a presentar
+	- Características principales detalladas, desde el punto de vista de un Administrador de Sistemas
+	- Ejemplo visual de cada característica
+· Un tutorial (pdf) que explique el proceso de instalación y uso general de la herramienta.
+· Demo en un sistema real (en PROXMOX) del uso de la herramienta
+· Preparación de una actividad a realizar por el resto del alumnado (práctica obligatoria) que incluya la instalación y algun/os usos  de dicha herramienta.
+
+'
+
 # EXPLICAR MAS EN DETALLE LAS HERRAMIENTAS
 # HACER 'PDF' DE LA INSTALACIÓN DE LA HERRAMIENTA
 # HACER DEMO EN PROXMOX
