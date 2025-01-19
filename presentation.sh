@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# HAY PROBLEMAS CON FUNCIÓN DE MOVEM
-
 # 1. PORTADA				  
 # 2. INDICE					  
 # 3. QUE ES Y COMO SE UTILIZA 
@@ -39,21 +37,15 @@ movem () {
 			"b") echo -n -e "\e[${OPTARG}D"    ;;
 			"c")
 				# movem -c X-Y
-				X_AXI=$(echo "${OPTARG}" | cut -d "-" -f 1 | xargs)
-				Y_AXI=$(echo "${OPTARG}" | cut -d "-" -f 2 | xargs)
-				TEXT_MV="\e[${Y_AXI};${X_AXI}j"
+				X_AXI=$(echo -n "${OPTARG}" | cut -d "-" -f 1)
+				Y_AXI=$(echo -n "${OPTARG}" | cut -d "-" -f 2)
+				TEXT_MV="\e[${Y_AXI};${X_AXI};H"
 				echo -n -e $TEXT_MV
 			;;
 			*) continue ;;
 		esac
 	done
 }
-
-moveu () { echo -e -n "\e[$1A"; }
-moved () { echo -e -n "\e[$1B"; }
-mover () { echo -e -n "\e[$1C"; }
-movel () { echo -e -n "\e[$1D"; }
-movec () { echo -e -n "\e[$1;$2H"; }
 
 if [[ $(whoami) != "root" ]]; then
 	logm "l" "Run as root"
@@ -155,7 +147,7 @@ mockup_slide () {
 	echo_text $((WIDTH / 2 - ( ${#TEXT} / 2))) $((HEIGHT / 2)) "$TEXT"
 }
 
-first_slide () {
+slide_n1 () {
 	FIRST_TEXT="Daniel Lopez"
 	SECOND_TEXT="|||||||||||||||"
 	THIRD_TEXT="Presentacion ASO SYSSTAT"
@@ -164,9 +156,24 @@ first_slide () {
 	wrap_textbw $((( WIDTH / 2 ) + 5 )) $((HEIGHT / 2 - 1)) 2 "$THIRD_TEXT"
 }
 
-second_slide () {
-	FIRST_TEXT="Indice - Sysstat linux"
-	echo_text 10 10 "$FIRST_TEXT"
+slide_n2 () {
+	FIRST_TEXT="INDICE - SYSSTAT LINUX"
+	echo_text 15 5 "$FIRST_TEXT"
+}
+
+slide_n3 () {
+	FIRST_TEXT="SYSSTAT - QUÉ ES Y COMO SE UTILIZA"
+	SECOND_TEXT="Sysstat es una 'suit' o conjunto de herramientas las cuales se utilizan para la monitorización de un sistema Linux. Este se encuentra facilmente instalable en todas las distribuciones actualizadas de Linux."
+	THIRD_TEXT="Dentro de esta 'suit' se encuentran las siguientes herramientas:"
+	FOURTH_TEXT="MPSTAT: Herramienta para monitorización de los recursos"
+	FIFTH_TEXT="PIDSTAT: Herramienta para monitorización de los procesos"
+	SIXTH_TEXT="IOSTAT: Herramienta para monitorización de los usuarios"
+	echo_text 15 5 "$FIRST_TEXT"
+	wrap_textbw 15 10 7 "$SECOND_TEXT"
+	wrap_textbw 15 17 9 "$THIRD_TEXT"
+	wrap_textbw 15 19 2 "$FOURTH_TEXT"
+	wrap_textbw 45 19 2 "$FIFTH_TEXT"
+	wrap_textbw 75 19 2 "$SIXTH_TEXT"
 }
 
 mockup_slide
@@ -186,7 +193,8 @@ while [[ $QUIT != 1 ]]; do
 	esac
 
 	case $SLIDE_COUNT in
-		1) first_slide  ;;
-		2) second_slide ;;
+		1) slide_n1 ;;
+		2) slide_n2 ;;
+		3) slide_n3 ;;
 	esac
 done
