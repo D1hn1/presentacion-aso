@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# EXPLICAR MAS EN DETALLE LAS HERRAMIENTAS
+# HACER 'PDF' DE LA INSTALACIÓN DE LA HERRAMIENTA
+# HACER DEMO EN PROXMOX
+# HACER UNA ACTIVIDAD PARA QUE LA CLASE LA HAGA ( INCLUIR INSTALACIÓN )
+
 # 1. PORTADA				  
 # 2. INDICE					  
 # 3. QUE ES Y COMO SE UTILIZA 
@@ -7,7 +12,8 @@
 
 QUIT=0
 SLIDE_COUNT=0
-TRANS_TIME=20
+#TRANS_TIME=20
+TRANS_TIME=0
 WIDTH=$(stty size | cut -d " " -f 2)
 HEIGHT=$(stty size | cut -d " " -f 1)
 
@@ -108,13 +114,51 @@ wrap_textbw () {
 	done
 }
 
+largest_line () {
+	LINE=$( bash -c "$1" | head -n 4 | tr '\n' '*' )
+	LARGEST=0
+	COUNT=0
+
+	for (( char=0; char < ${#LINE}; char++)); do
+		if [[ ${LINE:$char:1} == "*" ]]; then
+			if [[ $COUNT > $LARGEST ]]; then
+				LARGEST=$COUNT
+			fi
+			COUNT=0
+		else
+			((COUNT++))
+		fi
+	done
+
+	return $LARGEST
+}
+
+# show_table X Y COMMAND
+show_table () {
+	BACK=0
+	CMD=$(bash -c "$3" | head -n 10 | tr '	' ' ' | tr '\n' '*')
+	largest_line $3
+	CMD_X=$(($1 - ( $? / 2 ) ))
+	movem -c "$CMD_X-$2"
+
+	for (( char=0; char < ${#CMD}; char++)); do
+		if [[ ${CMD:$char:1} == "*" ]]; then
+			movem -b $BACK -d 1
+			BACK=0
+		else
+			echo -n "${CMD:$char:1}"
+			((BACK++))
+		fi
+	done
+}
+
 echo_text () {
 	movem -c "$1-$2"
 	echo -n -e $3
 }
 
 transition () {
-	movem -c 0-0
+	movem -c "0-0"
 	BT=0
 	for y in $( seq 1 $HEIGHT); do
 		for x in $( seq 1 $WIDTH); do
@@ -176,6 +220,30 @@ slide_n3 () {
 	wrap_textbw 75 19 2 "$SIXTH_TEXT"
 }
 
+slide_n4 () {
+	FIRST_TEXT="SYSSTAT - MPSTAT"
+	SECOND_TEXT="Esta herramienta..."
+	echo_text 15 5 "$FIRST_TEXT"
+	wrap_textbw 15 10 10 "$SECOND_TEXT"
+	show_table $(($WIDTH / 2)) $(($HEIGHT - 10)) "mpstat"
+}
+
+slide_n5 () {
+	FIRST_TEXT="SYSSTAT - PIDSTAT"
+	SECOND_TEXT="Esta herramienta..."
+	echo_text 15 5 "$FIRST_TEXT"
+	wrap_textbw 15 10 10 "$SECOND_TEXT"
+	show_table $(($WIDTH / 2 - 9)) $(($HEIGHT - 10)) "pidstat"
+}
+
+slide_n6 () {
+	FIRST_TEXT="SYSSTAT - IOSTAT"
+	SECOND_TEXT="Esta herramienta..."
+	echo_text 15 5 "$FIRST_TEXT"
+	wrap_textbw 15 10 10 "$SECOND_TEXT"
+	show_table $(($WIDTH / 2 - 15)) $(($HEIGHT - 10)) "iostat"
+}
+
 mockup_slide
 
 while [[ $QUIT != 1 ]]; do
@@ -183,8 +251,13 @@ while [[ $QUIT != 1 ]]; do
 	
 	case $CHOICE in
 		"q") clear; tput cnorm; exit ;;
-		"j") ((SLIDE_COUNT++)); transition ;;
+		"j") 
+			clear
+			((SLIDE_COUNT++))
+			transition
+		;;
 		"k") 
+			clear
 			if [[ $SLIDE_COUNT > 1 ]]; then
 				((SLIDE_COUNT--))
 				transition
@@ -196,5 +269,8 @@ while [[ $QUIT != 1 ]]; do
 		1) slide_n1 ;;
 		2) slide_n2 ;;
 		3) slide_n3 ;;
+		4) slide_n4 ;;
+		5) slide_n5 ;;
+		6) slide_n6 ;;
 	esac
 done
