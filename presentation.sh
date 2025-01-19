@@ -1,15 +1,12 @@
 #!/bin/bash
 
-':
-· Una presentación tipo "Power Point" / Prezi explicando:
-	- Qué herramienta va a presentar
-	- Características principales detalladas, desde el punto de vista de un Administrador de Sistemas
-	- Ejemplo visual de cada característica
-· Un tutorial (pdf) que explique el proceso de instalación y uso general de la herramienta.
-· Demo en un sistema real (en PROXMOX) del uso de la herramienta
-· Preparación de una actividad a realizar por el resto del alumnado (práctica obligatoria) que incluya la instalación y algun/os usos  de dicha herramienta.
-
-'
+#· Una presentación tipo "Power Point" / Prezi explicando:
+#	- Qué herramienta va a presentar
+#	- Características principales detalladas, desde el punto de vista de un Administrador de Sistemas
+#	- Ejemplo visual de cada característica
+#· Un tutorial (pdf) que explique el proceso de instalación y uso general de la herramienta.
+#· Demo en un sistema real (en PROXMOX) del uso de la herramienta
+#· Preparación de una actividad a realizar por el resto del alumnado (práctica obligatoria) que incluya la instalación y algun/os usos  de dicha herramienta.
 
 # EXPLICAR MAS EN DETALLE LAS HERRAMIENTAS
 # HACER 'PDF' DE LA INSTALACIÓN DE LA HERRAMIENTA
@@ -172,6 +169,15 @@ transition () {
 	movem -c "0-0"
 	BT=0
 	for y in $( seq 1 $HEIGHT); do
+
+		if [[ $(($WIDTH % 2)) == 0 ]]; then
+			if [[ $BT == 0 ]]; then 
+				BT=1
+			else 
+				BT=0 
+			fi
+		fi
+
 		for x in $( seq 1 $WIDTH); do
 			if [ $BT -eq 0 ]; then
 				echo -n -e "\033[48;5;255m \033[0m"
@@ -184,6 +190,7 @@ transition () {
 				continue
 			done
 		done
+
 	done
 
 	movem -c "0-0"
@@ -202,7 +209,13 @@ mockup_slide () {
 	echo_text $((WIDTH / 2 - ( ${#TEXT} / 2))) $((HEIGHT / 2)) "$TEXT"
 }
 
+draw_number () {
+	movem -c "2-2"
+	echo -n "$1 |"
+}
+
 slide_n1 () {
+	draw_number 1
 	FIRST_TEXT="Daniel Lopez"
 	SECOND_TEXT="|||||||||||||||"
 	THIRD_TEXT="Presentacion ASO SYSSTAT"
@@ -212,17 +225,19 @@ slide_n1 () {
 }
 
 slide_n2 () {
+	draw_number 2
 	FIRST_TEXT="INDICE - SYSSTAT LINUX"
 	echo_text 15 5 "$FIRST_TEXT"
 }
 
 slide_n3 () {
+	draw_number 3
 	FIRST_TEXT="SYSSTAT - QUÉ ES Y COMO SE UTILIZA"
 	SECOND_TEXT="Sysstat es una 'suit' o conjunto de herramientas las cuales se utilizan para la monitorización de un sistema Linux. Este se encuentra facilmente instalable en todas las distribuciones actualizadas de Linux."
 	THIRD_TEXT="Dentro de esta 'suit' se encuentran las siguientes herramientas:"
-	FOURTH_TEXT="MPSTAT: Herramienta para monitorización de los recursos"
-	FIFTH_TEXT="PIDSTAT: Herramienta para monitorización de los procesos"
-	SIXTH_TEXT="IOSTAT: Herramienta para monitorización de los usuarios"
+	FOURTH_TEXT="MPSTAT: Herramienta para monitorización de los recursos."
+	FIFTH_TEXT="PIDSTAT: Herramienta para monitorización de los procesos."
+	SIXTH_TEXT="IOSTAT: Herramienta para monitorización de los usuarios."
 	echo_text 15 5 "$FIRST_TEXT"
 	wrap_textbw 15 10 7 "$SECOND_TEXT"
 	wrap_textbw 15 17 9 "$THIRD_TEXT"
@@ -232,6 +247,7 @@ slide_n3 () {
 }
 
 slide_n4 () {
+	draw_number 4
 	FIRST_TEXT="SYSSTAT - MPSTAT"
 	SECOND_TEXT="Esta herramienta..."
 	echo_text 15 5 "$FIRST_TEXT"
@@ -240,6 +256,7 @@ slide_n4 () {
 }
 
 slide_n5 () {
+	draw_number 5
 	FIRST_TEXT="SYSSTAT - PIDSTAT"
 	SECOND_TEXT="Esta herramienta..."
 	echo_text 15 5 "$FIRST_TEXT"
@@ -248,6 +265,7 @@ slide_n5 () {
 }
 
 slide_n6 () {
+	draw_number 6
 	FIRST_TEXT="SYSSTAT - IOSTAT"
 	SECOND_TEXT="Esta herramienta..."
 	echo_text 15 5 "$FIRST_TEXT"
