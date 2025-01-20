@@ -8,6 +8,7 @@
 # · Demo en un sistema real (en PROXMOX) del uso de la herramienta
 # · Preparación de una actividad a realizar por el resto del alumnado (práctica obligatoria) que incluya la instalación y algun/os usos  de dicha herramienta.
 
+# EXPLICAR SAR COMO SERVICIO
 # EXPLICAR MAS EN DETALLE LAS HERRAMIENTAS
 # HACER 'PDF' DE LA INSTALACIÓN DE LA HERRAMIENTA
 # HACER DEMO EN PROXMOX
@@ -249,27 +250,42 @@ slide_n3 () {
 slide_n4 () {
 	draw_number 4
 	FIRST_TEXT="SYSSTAT - MPSTAT"
-	SECOND_TEXT="Esta herramienta..."
+	SECOND_TEXT="Con la herramienta MPSTAT podremos ver el uso de los núcleos de la CPU. Para ello podremos utilizar la aplicación sin ningún argumento."
+	THIRD_TEXT="Al comando se le pueden pasar dos valores, eston son los intervalos y el tiempo (mpstat 2 1) en este ejemplo hará 1 intervalo de 2 segundos."
+	FOURTH_TEXT="ARGUMENTOS : -A: ALL -o: JSON"
 	echo_text 15 5 "$FIRST_TEXT"
-	wrap_textbw 15 10 10 "$SECOND_TEXT"
+	wrap_textbw 15 10 7 "$SECOND_TEXT"
+	wrap_textbw 15 15 7 "$THIRD_TEXT"
+	wrap_textbw 80 10 2 "$FOURTH_TEXT"
 	show_table $(($WIDTH / 2)) $(($HEIGHT - 10)) "mpstat"
 }
 
 slide_n5 () {
 	draw_number 5
 	FIRST_TEXT="SYSSTAT - PIDSTAT"
-	SECOND_TEXT="Esta herramienta..."
+	SECOND_TEXT="Con la herramienta MPSTAT podremos ver el uso de los procesos en el sistema. Para ello podremos utilizar la aplicación sin ningún argumento."
+	THIRD_TEXT="Al comando se le pueden pasar dos valores, eston son los intervalos y el tiempo (pidstat 2 1) en este ejemplo hará 1 intervalo de 2 segundos."
+	FOURTH_TEXT="ARGUMENTOS:"
+	FIFTH_TEXT="-C, -G: Muestra solo procesos con el nombre que indiques."
+	SIXTH_TEXT="-p, -U: Muestra el proceso con el PID/usuario introducido."
 	echo_text 15 5 "$FIRST_TEXT"
-	wrap_textbw 15 10 10 "$SECOND_TEXT"
+	wrap_textbw 15 10 7 "$SECOND_TEXT"
+	wrap_textbw 15 15 7 "$THIRD_TEXT"
+	wrap_textbw 80 10 1 "$FOURTH_TEXT"
+	wrap_textbw 80 11 4 "$FIFTH_TEXT"
+	wrap_textbw 80 14 4 "$SIXTH_TEXT"
 	show_table $(($WIDTH / 2)) $(($HEIGHT - 10)) "pidstat"
 }
 
 slide_n6 () {
 	draw_number 6
 	FIRST_TEXT="SYSSTAT - IOSTAT"
-	SECOND_TEXT="Esta herramienta..."
+	SECOND_TEXT="Con la herramienta MPSTAT podremos ver tanto el uso de la CPU como el del disco duro. Para ello podremos utilizar la aplicación sin ningún argumento."
+	THIRD_TEXT="Al comando se le pueden pasar dos valores, eston son el tiempo y los intervalos (iostat 2 1) en este ejemplo hará 2 intervalo de 1 segundos."
+	FOURTH_TEXT="ARGUMENTOS:"
 	echo_text 15 5 "$FIRST_TEXT"
-	wrap_textbw 15 10 10 "$SECOND_TEXT"
+	wrap_textbw 15 10 7 "$SECOND_TEXT"
+	wrap_textbw 15 15 7 "$THIRD_TEXT"
 	show_table $(($WIDTH / 2 - 13)) $(($HEIGHT - 10)) "iostat"
 }
 
