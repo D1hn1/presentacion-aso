@@ -45,8 +45,13 @@ logm () {
 	return 0
 }
 
-if [ ! mpstat &>/dev/null ]; then
-	logm "c" "Sysstat is not installed"
+if [[ $WIDTH == 119 ]] && [[ $HEIGHT == 33 ]]; then 
+	if [ ! mpstat &>/dev/null ]; then
+		logm "c" "Sysstat is not installed"
+		exit
+	fi
+else
+	logm "m" "Script can´t run on actual terminal size"
 	exit
 fi
 
@@ -280,12 +285,17 @@ slide_n5 () {
 slide_n6 () {
 	draw_number 6
 	FIRST_TEXT="SYSSTAT - IOSTAT"
-	SECOND_TEXT="Con la herramienta MPSTAT podremos ver tanto el uso de la CPU como el del disco duro. Para ello podremos utilizar la aplicación sin ningún argumento."
+	SECOND_TEXT="Con la herramienta IOSTAT podremos ver tanto el uso de la CPU como el del disco duro. Para ello podremos utilizar la aplicación sin ningún argumento."
 	THIRD_TEXT="Al comando se le pueden pasar dos valores, eston son el tiempo y los intervalos (iostat 2 1) en este ejemplo hará 2 intervalo de 1 segundos."
 	FOURTH_TEXT="ARGUMENTOS:"
+	FIFTH_TEXT="-h: Muestra el output de una manera más bonita y ordenada."
+	SIXTH_TEXT="-o: Muestra el output en JSON." 
 	echo_text 15 5 "$FIRST_TEXT"
 	wrap_textbw 15 10 7 "$SECOND_TEXT"
 	wrap_textbw 15 15 7 "$THIRD_TEXT"
+	wrap_textbw 80 10 1 "$FOURTH_TEXT"
+	wrap_textbw 80 11 4 "$FIFTH_TEXT"
+	wrap_textbw 80 14 4 "$SIXTH_TEXT"
 	show_table $(($WIDTH / 2 - 13)) $(($HEIGHT - 10)) "iostat"
 }
 
