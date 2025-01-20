@@ -8,7 +8,6 @@
 # · Demo en un sistema real (en PROXMOX) del uso de la herramienta
 # · Preparación de una actividad a realizar por el resto del alumnado (práctica obligatoria) que incluya la instalación y algun/os usos  de dicha herramienta.
 
-# HACER INDICE
 # HACER 'PDF' DE LA INSTALACIÓN DE LA HERRAMIENTA
 # HACER DEMO EN PROXMOX
 # HACER UNA ACTIVIDAD PARA QUE LA CLASE LA HAGA ( INCLUIR INSTALACIÓN )
@@ -54,6 +53,7 @@ fi
 clear
 tput civis
 
+# movem -u UP -d DOWN ...
 movem () {
 	local OPTIND
 	while getopts ":u:d:f:b:c:" opt; do
@@ -74,7 +74,7 @@ movem () {
 	done
 }
 
-
+# wrap_text X Y LENGTH TEXT
 wrap_text () {
 
 	movem -c "$1-$2"
@@ -166,6 +166,7 @@ show_table () {
 	done
 }
 
+# echo_text X Y TEXT
 echo_text () {
 	movem -c "$1-$2"
 	echo -n -e $3
@@ -210,6 +211,7 @@ transition () {
 	done
 }
 
+# draw_number NUMBER
 draw_number () {
 	movem -c "3-2"
 	echo -n "$1 |"
@@ -228,12 +230,28 @@ slide_n1 () {
 slide_n2 () {
 	draw_number 2
 	FIRST_TEXT="INDICE - SYSSTAT LINUX"
+	SECOND_TEXT="1. Introducción"
+	THIRD_TEXT="2. Indice"
+	FOURTH_TEXT="3. Qué es y para que se utiliza"
+	FIFTH_TEXT="4. MPSTAT"
+	SIXTH_TEXT="5. PIDSTAT"
+	SEVENTH_TEXT="6. IOSTAT"
+	EIGTH_TEXT="7. Sysstat demonio"
+	NINETH_TEXT="8. Fin"
 	echo_text 15 5 "$FIRST_TEXT"
+	echo_text 15 10 "$SECOND_TEXT"
+	echo_text 15 11 "$THIRD_TEXT"
+	echo_text 15 12 "$FOURTH_TEXT"
+	echo_text 18 13 "$FIFTH_TEXT"
+	echo_text 18 14 "$SIXTH_TEXT"
+	echo_text 18 15 "$SEVENTH_TEXT"
+	echo_text 15 16 "$EIGTH_TEXT"
+	echo_text 15 17 "$NINETH_TEXT"
 }
 
 slide_n3 () {
 	draw_number 3
-	FIRST_TEXT="SYSSTAT - QUÉ ES Y COMO SE UTILIZA"
+	FIRST_TEXT="SYSSTAT - QUÉ ES Y PARA QUE SE UTILIZA"
 	SECOND_TEXT="Sysstat es una 'suit' o conjunto de herramientas las cuales se utilizan para la monitorización de un sistema Linux. Este se encuentra facilmente instalable en todas las distribuciones actualizadas de Linux."
 	THIRD_TEXT="Dentro de esta 'suit' se encuentran las siguientes herramientas:"
 	FOURTH_TEXT="MPSTAT: Herramienta para monitorización de los recursos."
