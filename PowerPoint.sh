@@ -8,17 +8,18 @@
 # · Demo en un sistema real (en PROXMOX) del uso de la herramienta
 # · Preparación de una actividad a realizar por el resto del alumnado (práctica obligatoria) que incluya la instalación y algun/os usos  de dicha herramienta.
 
-# EXPLICAR SAR COMO SERVICIO ( SEPTIMA DIAPOSITIVA )
+# HACER INDICE
 # HACER 'PDF' DE LA INSTALACIÓN DE LA HERRAMIENTA
 # HACER DEMO EN PROXMOX
 # HACER UNA ACTIVIDAD PARA QUE LA CLASE LA HAGA ( INCLUIR INSTALACIÓN )
 
 QUIT=0
-SLIDES=6
+SLIDES=8
 CHOICE="j"
 SLIDE_COUNT=0
-#TRANS_TIME=20
-TRANS_TIME=0
+
+TRANS_TIME=20    # YOU CAN CHANGE THIS
+TRANS_ENABLED=1  # YOU CAN CHANGE THIS
 
 WIDTH=$(stty size | cut -d " " -f 2)
 HEIGHT=$(stty size | cut -d " " -f 1)
@@ -210,7 +211,7 @@ transition () {
 }
 
 draw_number () {
-	movem -c "2-2"
+	movem -c "3-2"
 	echo -n "$1 |"
 }
 
@@ -293,6 +294,41 @@ slide_n6 () {
 	show_table $(($WIDTH / 2 - 13)) $(($HEIGHT - 10)) "iostat"
 }
 
+slide_n7 () {
+	draw_number 7
+	FIRST_TEXT="SYSSTAT - DEMONIO"
+	SECOND_TEXT="La suit de Sysstat también cuenta con un demonio el cual se puede activar mediante systemctl."
+	THIRD_TEXT="El comando será el siguiente: systemctl start sysstat.service."
+	FOURTH_TEXT="Una vez activo sysstat guardará los 'logs' en la carpeta /var/log/sysstat."
+	FIFTH_TEXT="root@linux~# ls /var/log/sysstat"
+	SIXTH_TEXT="sa01 sa02 sa03 sa04 sa05 sa06 sa07 sa08 sa09 sa10 sa11 sa12 sa13 sa14 sa15 sa16 sa17 sa18 sa19 sa20 sa21 sa22 sa23 sa24 sa25 sa26 sa27 sa29 sa30 sa31"
+	echo_text 15 5 "$FIRST_TEXT"
+	wrap_textbw 15 10 7 "$SECOND_TEXT"
+	wrap_textbw 15 14 10 "$THIRD_TEXT"
+	wrap_textbw 15 16 7 "$FOURTH_TEXT"
+	wrap_textbw 15 19 10 "$FIFTH_TEXT"
+	wrap_textbw 15 21 15 "$SIXTH_TEXT"
+}
+
+slide_n8 () {
+	IFS='%'
+	BANNER_A="#######  ####  ##    ##" # 3
+	BANNER_B="#######  ####  ##    ##" # 2
+	BANNER_C="###      ####  ####  ##" # 1
+	BANNER_D="######   ####  ####  ##" # 0
+	BANNER_E="###      ####  ##  ####" # 1
+	BANNER_F="###      ####  ##  ####" # 2
+	BANNER_G="###      ####  ##    ##" # 3
+	echo_text $(($WIDTH / 2 - ( 23 / 2))) $(($HEIGHT / 2 - 3)) "$BANNER_A"
+	echo_text $(($WIDTH / 2 - ( 23 / 2))) $(($HEIGHT / 2 - 2)) "$BANNER_B"
+	echo_text $(($WIDTH / 2 - ( 23 / 2))) $(($HEIGHT / 2 - 1)) "$BANNER_C"
+	echo_text $(($WIDTH / 2 - ( 23 / 2))) $(($HEIGHT / 2)) "$BANNER_D"
+	echo_text $(($WIDTH / 2 - ( 23 / 2))) $(($HEIGHT / 2 + 1)) "$BANNER_E"
+	echo_text $(($WIDTH / 2 - ( 23 / 2))) $(($HEIGHT / 2 + 2)) "$BANNER_F"
+	echo_text $(($WIDTH / 2 - ( 23 / 2))) $(($HEIGHT / 2 + 3)) "$BANNER_G"
+	IFS=' '
+}
+
 while [[ $QUIT != 1 ]]; do
 	
 	case $CHOICE in
@@ -301,14 +337,18 @@ while [[ $QUIT != 1 ]]; do
 			clear
 			if [[ $SLIDE_COUNT < $SLIDES ]]; then
 				((SLIDE_COUNT++))
-				transition
+				if [[ $TRANS_ENABLED == 1 ]]; then
+					transition
+				fi
 			fi
 		;;
 		"k") 
 			clear
 			if [[ $SLIDE_COUNT > 1 ]]; then
 				((SLIDE_COUNT--))
-				transition
+				if [[ $TRANS_ENABLED == 1 ]]; then
+					transition
+				fi
 			fi
 		;;
 	esac
@@ -320,6 +360,8 @@ while [[ $QUIT != 1 ]]; do
 		4) slide_n4 ;;
 		5) slide_n5 ;;
 		6) slide_n6 ;;
+		7) slide_n7 ;;
+		8) slide_n8 ;;
 	esac
 
 	read -sn1 CHOICE
