@@ -19,9 +19,12 @@
 # 4. EJEMPLOS				  
 
 QUIT=0
+SLIDES=6
+CHOICE="j"
 SLIDE_COUNT=0
 #TRANS_TIME=20
 TRANS_TIME=0
+
 WIDTH=$(stty size | cut -d " " -f 2)
 HEIGHT=$(stty size | cut -d " " -f 1)
 
@@ -40,6 +43,15 @@ logm () {
 	esac
 	return 0
 }
+
+if [ ! mpstat &>/dev/null ]; then
+	logm "c" "Sysstat is not installed"
+	exit
+fi
+
+# CLEAR && HIDE MOUSE
+clear
+tput civis
 
 movem () {
 	local OPTIND
@@ -61,13 +73,6 @@ movem () {
 	done
 }
 
-if [[ $(whoami) != "root" ]]; then
-	logm "l" "Run as root"
-fi
-
-# CLEAR && HIDE MOUSE
-clear
-tput civis
 
 wrap_text () {
 
@@ -123,7 +128,7 @@ wrap_textbw () {
 }
 
 largest_line () {
-	LINE=$( bash -c "$1" | head -n 4 | tr '\n' '*' )
+	LINE=$( bash -c "$1" | head -n 4 | tr '	' ' ' | tr '\n' '*' )
 	LARGEST=0
 	COUNT=0
 
@@ -204,11 +209,6 @@ transition () {
 	done
 }
 
-mockup_slide () {
-	TEXT="Press J to begin"
-	echo_text $((WIDTH / 2 - ( ${#TEXT} / 2))) $((HEIGHT / 2)) "$TEXT"
-}
-
 draw_number () {
 	movem -c "2-2"
 	echo -n "$1 |"
@@ -261,7 +261,7 @@ slide_n5 () {
 	SECOND_TEXT="Esta herramienta..."
 	echo_text 15 5 "$FIRST_TEXT"
 	wrap_textbw 15 10 10 "$SECOND_TEXT"
-	show_table $(($WIDTH / 2 - 9)) $(($HEIGHT - 10)) "pidstat"
+	show_table $(($WIDTH / 2)) $(($HEIGHT - 10)) "pidstat"
 }
 
 slide_n6 () {
@@ -270,20 +270,19 @@ slide_n6 () {
 	SECOND_TEXT="Esta herramienta..."
 	echo_text 15 5 "$FIRST_TEXT"
 	wrap_textbw 15 10 10 "$SECOND_TEXT"
-	show_table $(($WIDTH / 2 - 15)) $(($HEIGHT - 10)) "iostat"
+	show_table $(($WIDTH / 2 - 13)) $(($HEIGHT - 10)) "iostat"
 }
 
-mockup_slide
-
 while [[ $QUIT != 1 ]]; do
-	read -sn1 CHOICE
 	
 	case $CHOICE in
 		"q") clear; tput cnorm; exit ;;
 		"j") 
 			clear
-			((SLIDE_COUNT++))
-			transition
+			if [[ $SLIDE_COUNT < $SLIDES ]]; then
+				((SLIDE_COUNT++))
+				transition
+			fi
 		;;
 		"k") 
 			clear
@@ -302,4 +301,7 @@ while [[ $QUIT != 1 ]]; do
 		5) slide_n5 ;;
 		6) slide_n6 ;;
 	esac
+
+	read -sn1 CHOICE
+
 done
