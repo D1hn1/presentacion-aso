@@ -326,7 +326,7 @@ slide_n8 () {
 	echo_text $(($WIDTH / 2 - ( 23 / 2))) $(($HEIGHT / 2 + 1)) "$BANNER_E"
 	echo_text $(($WIDTH / 2 - ( 23 / 2))) $(($HEIGHT / 2 + 2)) "$BANNER_F"
 	echo_text $(($WIDTH / 2 - ( 23 / 2))) $(($HEIGHT / 2 + 3)) "$BANNER_G"
-	IFS=' '
+	unset IFS
 }
 
 while [[ $QUIT != 1 ]]; do
