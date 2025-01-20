@@ -8,16 +8,10 @@
 # · Demo en un sistema real (en PROXMOX) del uso de la herramienta
 # · Preparación de una actividad a realizar por el resto del alumnado (práctica obligatoria) que incluya la instalación y algun/os usos  de dicha herramienta.
 
-# EXPLICAR SAR COMO SERVICIO
-# EXPLICAR MAS EN DETALLE LAS HERRAMIENTAS
+# EXPLICAR SAR COMO SERVICIO ( SEPTIMA DIAPOSITIVA )
 # HACER 'PDF' DE LA INSTALACIÓN DE LA HERRAMIENTA
 # HACER DEMO EN PROXMOX
 # HACER UNA ACTIVIDAD PARA QUE LA CLASE LA HAGA ( INCLUIR INSTALACIÓN )
-
-# 1. PORTADA				  
-# 2. INDICE					  
-# 3. QUE ES Y COMO SE UTILIZA 
-# 4. EJEMPLOS				  
 
 QUIT=0
 SLIDES=6
