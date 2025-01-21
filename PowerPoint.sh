@@ -27,7 +27,7 @@ logm () {
 	return 0
 }
 
-if [[ $WIDTH == 119 ]] && [[ $HEIGHT == 33 ]]; then 
+if [[ $WIDTH > 119 ]]; then 
 	if [ ! mpstat &>/dev/null ]; then
 		logm "c" "Sysstat is not installed"
 		exit
